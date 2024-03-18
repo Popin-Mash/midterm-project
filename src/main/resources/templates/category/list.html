@@ -1,0 +1,51 @@
+
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}" lang="en">
+<head>
+    <title>List Category</title>
+    <title>Create Category</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" >
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content" class="container">
+
+    <div class="container mt-2">
+        <a class="btn btn-primary float-end mb-2" th:href="@{/listcategory/create}">Create</a>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="items :${category}">
+                    <td th:text="${items.id}"></td>
+                    <td th:text="${items.name}"></td>
+                    <td th:text="${items.status}"></td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="/svg/group_add_FILL0_wght400_GRAD0_opsz24.svg" alt="" srcset="">
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                              <li><a class="dropdown-item" th:href="@{'/listcategory/edit/' + ${items.id}}">Edit</a></li>
+                              <li><a class="dropdown-item" th:href="@{'/listcategory/delete/' + ${items.id}}">Delete</a></li>
+                              <li><a class="dropdown-item" th:href="@{'/listcategory/dis/' + ${items.id}}">Disable</a></li>
+                            </ul>
+                          </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+    
+</div>
+</body>
+</html>

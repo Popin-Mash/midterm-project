@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}" lang="en">
+
+<head>
+    <title>List Category</title>
+    <title>Create Category</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div layout:fragment="content" class="container">
+        <div class="container">
+            <div class="card">            
+                    <div class="card-header">
+                        <h2 th:if="${category.id == 0}">Create Category</h2>
+                        <h2 th:if="${category.id != 0}">Update Category</h2>
+                    </div>
+
+                    <div class="card-body">
+                    <div class="row justify-content-center align-items-center g-2">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <nav aria-label="breadcrumb" class="float-end">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a th:href="@{/listcategory}">List Category</a>
+                                        </li>
+                                        <li th:if="${category.id == 0}" class="breadcrumb-item active"
+                                            aria-current="page">
+                                            Create Category
+                                        </li>
+                                        <li th:if="${category.id != 0}" class="breadcrumb-item active"
+                                            aria-current="page">
+                                            Update Category
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <form th:action="@{/listcategory/create}" method="post" th:object="${category}">
+                                <label>
+                                    <input th:field="*{id}" hidden />
+                                </label>
+                                <div class="form-floating mb-3">
+                                    <input type="text" th:field="*{name}" class="form-control" id="floatingInput"
+                                        placeholder="Category Name" />
+                                    <label for="floatingInput">Category Name</label>
+                                </div>
+
+                                <div class="form-floating">
+                                    <select name="" class="form-control" th:field="*{status}" id="">
+                                        <option th:each="stat : ${category.getStatuslist()}" th:text="${stat.value}"
+                                            th:value="${stat.key}"></option>
+                                    </select>
+                                    <label for="">Status</label>
+                                </div>
+                                <button th:if="${category.id == 0}" class="btn btn-primary mt-2">
+                                    Save
+                                </button>
+                                <button th:if="${category.id != 0}" class="btn btn-primary mt-2">
+                                    Update
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
